@@ -5,7 +5,7 @@ from pytorch_lightning.trainer.supporters import CombinedLoader
 from torch import Tensor
 from torch.utils.data import DataLoader, Dataset
 
-from ..tuples import SessionBatch
+from .tuples import SessionBatch
 
 MANDATORY_KEYS = {
     "train": ["encod_data", "recon_data"],
@@ -75,17 +75,6 @@ def attach_tensors(datamodule, data_dicts: list[dict], extra_keys: list[str] = [
         datamodule.test_ds = [SessionDataset(*test_data) for test_data in all_test_data]
 
 
-def reshuffle_train_valid(train_tensors, valid_tensors, seed):
-    n_train, n_valid = len(train_tensors[0]), len(valid_tensors[0])
-    tensors = [torch.cat([t, v]) for t, v in zip(train_tensors, valid_tensors)]
-    gen = torch.Generator().manual_seed(seed)
-    inds = torch.randperm(n_train + n_valid, generator=gen)
-    train_inds, valid_inds = torch.split(inds, [n_train, n_valid])
-    train_tensors = [t[train_inds] for t in tensors]
-    valid_tensors = [t[valid_inds] for t in tensors]
-    return train_tensors, valid_tensors, train_inds, valid_inds
-
-
 class SessionDataset(Dataset):
     def __init__(
         self, model_tensors: SessionBatch[Tensor], extra_tensors: tuple[Tensor]
@@ -110,8 +99,9 @@ class BasicDataModule(pl.LightningDataModule):
     def __init__(
         self,
         data_paths: list[str],
+        batch_keys: list[str] = [],
+        attr_keys: list[str] = [],
         batch_size: int = 64,
-        reshuffle_tv_seed: int = None,
         sv_rate: float = 0.0,
         sv_seed: int = 0,
         dm_ic_enc_seq_len: int = 0,
@@ -126,26 +116,11 @@ class BasicDataModule(pl.LightningDataModule):
             # Load data arrays from the file
             with h5py.File(data_path, "r") as h5file:
                 data_dict = {k: v[()] for k, v in h5file.items()}
-            # Add separate keys for encod and recon data
-            if "train_data" in data_dict:
-                data_dict.update(
-                    {
-                        "train_encod_data": data_dict["train_data"],
-                        "train_recon_data": data_dict["train_data"],
-                        "valid_encod_data": data_dict["valid_data"],
-                        "valid_recon_data": data_dict["valid_data"],
-                    }
-                )
             data_dicts.append(data_dict)
         # Attach data to the datamodule
-        attach_tensors(self, data_dicts)
-        if hps.reshuffle_tv_seed is not None:
-            # Reshuffle the training / validation split
-            self.train_data, self.valid_data, _, _ = reshuffle_train_valid(
-                train_tensors=self.train_data,
-                valid_tensors=self.valid_data,
-                seed=hps.reshuffle_tv_seed,
-            )
+        attach_tensors(self, data_dicts, extra_keys=hps.batch_keys)
+        for attr_key in hps.attr_keys:
+            setattr(self, attr_key, data_dict[attr_key])
 
     def train_dataloader(self, shuffle=True):
         # PTL provides all batches at once, so divide amongst dataloaders
