@@ -1,0 +1,7 @@
+# configs/datamodule/sinaps_npz_dataset.yaml
+_target_: lfads_torch.datamodules.BasicDataModule
+datafile_pattern: /Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/myData/lfads_converted_spikes.npz
+batch_keys:
+  - spikes
+attr_keys: []
+batch_size: 64
