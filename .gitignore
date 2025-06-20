@@ -142,5 +142,7 @@ dmypy.json
 .idea/
 
 # Large data files
-*.h5
 *.nwb
+*.h5
+*.npz
+*.ckpt
