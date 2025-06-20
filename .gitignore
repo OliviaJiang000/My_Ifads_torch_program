@@ -133,3 +133,14 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+# PyCharm
+#  JetBrains specific template is maintained in a separate JetBrains.gitignore
+#  file: https://github.com/github/gitignore/blob/master/Global/JetBrains.gitignore
+#  and not here for JetBrains project files.
+.idea/
+
+# Large data files
+*.h5
+*.nwb
