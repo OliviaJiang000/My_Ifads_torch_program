@@ -7,7 +7,7 @@ from lfads_torch.run_model import run_model
 
 # ---------- OPTIONS -----------
 PROJECT_STR = "my-try-lfads-torch-example"
-DATASET_STR = "nlb_mc_maze"
+DATASET_STR = "my_datamodule01"
 RUN_TAG = datetime.now().strftime("%y%m%d") + "_exampleMine"
 RUN_DIR = Path("runs") / PROJECT_STR / DATASET_STR / RUN_TAG
 OVERWRITE = True
@@ -24,7 +24,7 @@ os.chdir(RUN_DIR)
 run_model(
     overrides={
         "datamodule": DATASET_STR,
-        "model": DATASET_STR,
+        "model": "my_module01",
     },
-    config_path="../configs/sinaps_demo.yaml",
+    config_path="../configs/single.yaml",
 )

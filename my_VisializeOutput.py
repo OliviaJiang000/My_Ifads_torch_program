@@ -5,6 +5,8 @@ import numpy as np
 file_path = './scripts/runs/lfads-torch-example/nlb_mc_maze/250612_exampleSingle/lfads_output_mc_maze-20ms-val.h5'
 
 file_path='/Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/datasets/mc_maze_small-05ms-val.h5'
+
+file_path='/Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/myData/my_lfads_input.h5'
 with h5py.File(file_path, 'r') as f:
     print(list(f.keys()))  # 查看所有内容
 
@@ -12,6 +14,8 @@ with h5py.File(file_path, 'r') as f:
     def print_structure(name, obj):
         print(name)
 
+
+    print("train_recon_data shape:", f["train_recon_data"].shape)
 
     f.visititems(print_structure)
     # 示例读取
