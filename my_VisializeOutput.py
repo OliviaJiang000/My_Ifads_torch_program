@@ -6,7 +6,7 @@ file_path = './scripts/runs/lfads-torch-example/nlb_mc_maze/250612_exampleSingle
 
 file_path='/Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/datasets/mc_maze_small-05ms-val.h5'
 
-file_path='/Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/myData/my_lfads_input.h5'
+# file_path='/Users/jojo/Documents/PythonProject/My_IFads_torch_program/lfads-torch/myData/my_lfads_input.h5'
 with h5py.File(file_path, 'r') as f:
     print(list(f.keys()))  # 查看所有内容
 

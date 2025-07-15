@@ -7,7 +7,6 @@ from lfads_torch.run_model import run_model
 
 # ---------- OPTIONS -----------
 PROJECT_STR = "my-try-lfads-torch-example"
-PROJECT_STR = "my-try-000128"
 DATASET_STR = "my_datamodule01"
 RUN_TAG = datetime.now().strftime("%y%m%d") + "_exampleMine"
 RUN_DIR = Path("runs") / PROJECT_STR / DATASET_STR / RUN_TAG

@@ -1,9 +1,9 @@
 _target_: lfads_torch.model.LFADS
 
 # --------- architecture --------- #
-encod_data_dim: 32
-encod_seq_len: 31
-recon_seq_len: 31
+encod_data_dim: 137
+encod_seq_len: 35
+recon_seq_len: 35
 ext_input_dim: 0
 ic_enc_seq_len: 0
 ic_enc_dim: 64
@@ -23,7 +23,7 @@ readout:
   modules:
     - _target_: lfads_torch.modules.readin_readout.FanInLinear
       in_features: ${model.fac_dim}
-      out_features: 32
+      out_features: 45
 
 # --------- augmentation --------- #
 train_aug_stack:

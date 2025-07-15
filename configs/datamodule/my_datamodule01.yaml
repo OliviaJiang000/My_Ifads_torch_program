@@ -1,0 +1,11 @@
+_target_: lfads_torch.datamodules.BasicDataModule
+#attr_keys:
+#- psth
+#- train_cond_idx
+#- valid_cond_idx
+#- train_decode_mask
+#- valid_decode_mask
+batch_keys:
+- behavior
+batch_size: 256
+datafile_pattern: ${relpath:myData/myTry_000128_5.h5} # my_lfads_input.h5

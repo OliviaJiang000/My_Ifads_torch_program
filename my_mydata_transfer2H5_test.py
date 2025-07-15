@@ -5,7 +5,7 @@ import yaml
 import os
 
 # 参数配置
-nwb_path = 'myData/sub-Indy_desc-train_behavior+ecephys.nwb'
+nwb_path = 'nlb_tools/examples/tutorials/000128/sub-Jenkins/sub-Jenkins_ses-full_desc-train_behavior+ecephys.nwb'   # mc_maze
 output_h5 = 'myData/my_lfads_input.h5'
 output_yaml = 'configs/datamodule/my_datamodule01.yaml'
 bin_size_ms = 20  # 20ms bin
@@ -15,6 +15,7 @@ io = pynwb.NWBHDF5IO(nwb_path, 'r')
 nwbfile = io.read()
 
 units = nwbfile.units
+
 n_units = len(units['id'].data[:])
 heldout_mask = units['heldout'].data[:]
 

@@ -1,0 +1,9 @@
+datamodule:
+  _target_: lfads_torch.datamodules.lfads_datamodule.LFADSDataModule
+  batch_size: 64
+  dataset_path: myData/my_000128_test02.h5
+  num_workers: 4
+  seq_len: 211
+  spike_data_transform:
+    _target_: lfads_torch.datamodules.transforms.SqrtTransform
+    offset: 0.1
