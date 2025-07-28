@@ -26,6 +26,7 @@ run_model(
     overrides={
         "datamodule": DATASET_STR,
         "model": "my_module01",
-    },
+        "callbacks":"nlb",
+    }, 
     config_path="../configs/single.yaml",
 )

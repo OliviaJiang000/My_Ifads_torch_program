@@ -1,7 +1,9 @@
 defaults:
   - model: nlb_mc_maze
   - datamodule: nlb_mc_maze
-  - callbacks: default
+  - callbacks:
+    - default
+    - nlb
   - _self_
 
 seed: 0
@@ -38,13 +40,13 @@ callbacks:
 logger:
   csv_logger:
     _target_: pytorch_lightning.loggers.CSVLogger
-    save_dir: "csv_logs"
-    version: ""
-    name: ""
+    save_dir: "./logs"
+    version: "v1"
+    name: "csv_logs"
   tensorboard_logger:
     _target_: pytorch_lightning.loggers.TensorBoardLogger
-    save_dir: "."
-    version: ""
+    save_dir: "./logs"
+    version: "v3"
     name: ""
 
 posterior_sampling:

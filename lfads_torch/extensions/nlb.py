@@ -118,6 +118,7 @@ class NLBEvaluation(pl.Callback):
         if hasattr(trainer.datamodule, "psth"):
             psth = trainer.datamodule.psth
             cond_idxs = trainer.datamodule.valid_cond_idx
+            print('cond_idxs:',cond_idxs)
             jitter = getattr(trainer.datamodule, "valid_jitter", None)
             psth_r2 = eval_psth(psth, rates_obs, cond_idxs, jitter)
             metrics["nlb/psth_r2"] = max(psth_r2, -1.0)
