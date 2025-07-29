@@ -11,7 +11,7 @@ import h5py
 import logging
 
 align = 'holdstart'
-length = 0.0
+length = 0.02
 # 20ms一个窗口
 bins = [-0.5, 1.5]
 logging.basicConfig(level=logging.INFO)
